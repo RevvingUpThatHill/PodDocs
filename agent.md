@@ -46,8 +46,11 @@ Status:
 - 200 OK
 -   Body: { "id":1234, "username":"user1", "active":true }
 ## GET /user
+docs todo
 ## GET /user/{id}
+docs todo
 ## POST /login
+docs todo
 ## PUT /image
 Require:
 - Valid pod token
