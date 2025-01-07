@@ -5,6 +5,8 @@ https://github.com/coder/code-server
 
 Code-server is a browser based VSCode that functions effectively identically to gitpod. The code-server delivers a single instance of the IDE (with a sudo access terminal) on a websocket, which is crucial info for the project specs below. The code-server project is open source and regularly maintained by the coder organization. This is the best solution because other solutions typically require a cost per-user with some obtuse auth method (such as github for gitpod) or is otherwise a subscription method that would be way too expensive (redhat devbox). Because we are already building this infra for labs, I would also like to use the pods for general training coding, so that everyone uses the same environments without the need for setup. This would reduce a the burden of getting environments running for the training which usually takes a couple of days.
 
+The coder organization that maintains the code-server project has an enterprise version of the project where the IDE is accessed from their UI; but on top of being expensive, the IDE isn't directly accessed from a link, which is what we would rather have for our Revpro integration.
+
 ## Orchestration
 
 The most significant problem for us to solve is the management of multiple containers. Our natural instinct is to use Kubernetes, but there is a key deficiency in that system: we have no access to stopped pods. We can not move the contents of a pod to cloud storage. I listed some workarounds to this problem below.
