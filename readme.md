@@ -1,5 +1,5 @@
 # Pod alternatives
-I propose to replace gitpod with a self-host dockerized code-server containers delivered via a reverse proxy.
+I propose to replace gitpod with a self-hosted dockerized code-server containers delivered via a reverse proxy.
 
 https://github.com/coder/code-server
 
@@ -9,7 +9,7 @@ The coder organization that maintains the code-server project has an enterprise 
 
 ## Orchestration
 
-The most significant problem for us to solve is the management of multiple containers. Our natural instinct is to use Kubernetes, but there is a key deficiency in that system: we have no access to stopped pods. We can not move the contents of a pod to cloud storage. I listed some workarounds to this problem below.
+The most significant problem for us to solve is the management of multiple containers. Our natural instinct is to use Kubernetes, but there is a key deficiency in that system: we have no access to stopped pods. This is relevant because it seems necessary that we can not lets pods permanently idle as they are only in use for a short portion of the day, and in many cases a PEP trainee will leave without notice. Having a thousand idling pods will eat up compute, so we need to have a system to shut down a pod and reactivate it on request. In Kubernetes, however, no method exists move the contents of a pod to cloud storage. I listed some workarounds to this problem below.
 ### Option 1: K8 DinD
 I tried bypassing these issues first by running the pods as a sysbox DinD container. This allows an outer managerial container to control the inner container. The outer pod will evict & save the pod when required. When attempting this route, I ran into issues with container isolation, where I failed to run Docker-in-Docker-in-Docker securely using sysbox to allow for Docker functionality within the container, and overall this matroshka doll nesting seemed like an excessively cumbersome solution. I believe that Gitpod was doing something similar to this when they were still using K8, since their documentation specifies an extra "isolation layer" around the pod.
 ### Option 2: K8 Volumes
